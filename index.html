@@ -269,13 +269,28 @@
 
   /* ===== TESTIMONIALS ===== */
   .testimonials{ background:var(--bg-alt); }
-  .t-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:36px; }
+  .t-carousel{ position:relative; display:flex; align-items:center; gap:14px; }
+  .t-track-wrap{ overflow:hidden; flex:1; border:1px solid var(--line); }
+  .t-track{ display:flex; transition: transform .5s cubic-bezier(.65,0,.35,1); }
   .t-card{
-    background:var(--panel); border:1px solid var(--line); padding:38px 32px;
+    flex:0 0 100%; background:var(--panel); padding:52px 60px; text-align:center;
   }
   .t-card .stars{ color:var(--accent); letter-spacing:3px; margin-bottom:18px; font-size:.9rem;}
-  .t-card p{ font-family:'Cormorant Garamond', serif; font-size:1.2rem; font-style:italic; color:var(--ink); margin-bottom:20px; }
+  .t-card p{ font-family:'Cormorant Garamond', serif; font-size:1.35rem; font-style:italic; color:var(--ink); margin:0 auto 20px; max-width:640px; }
   .t-card .who{ font-size:.76rem; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-dim); }
+  .t-nav{
+    flex:0 0 auto; width:46px; height:46px; border-radius:50%;
+    border:1px solid var(--line); background:var(--panel); color:var(--accent);
+    font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition:.3s;
+  }
+  .t-nav:hover{ background:var(--accent); color:#0c0a08; border-color:var(--accent); }
+  .t-dots{ display:flex; justify-content:center; gap:10px; margin-top:24px; }
+  .t-dot{
+    width:9px; height:9px; border-radius:50%; background:var(--line); cursor:pointer;
+    transition:.3s; border:1px solid transparent;
+  }
+  .t-dot.active{ background:var(--accent); }
 
   /* ===== LOCATION ===== */
   .location-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line); }
@@ -389,7 +404,9 @@
   @media (max-width: 980px){
     .legacy-grid, .loyalty-inner, .location-grid{ grid-template-columns:1fr; gap:40px;}
     .catalog-grid{ grid-template-columns:repeat(2,1fr);}
-    .orders-grid, .t-grid{ grid-template-columns:1fr;}
+    .orders-grid{ grid-template-columns:1fr;}
+    .t-card{ padding:34px 26px; }
+    .t-nav{ width:36px; height:36px; font-size:.85rem; }
     .receta-card{ min-height:0; }
     .receta-scrim{ background: linear-gradient(180deg, rgba(4,3,2,.8) 0%, rgba(4,3,2,.95) 30%, rgba(4,3,2,.99) 100%); }
     .receta-content{ max-width:none; padding:34px 26px; background:rgba(4,3,2,.35); }
@@ -434,7 +451,7 @@
     <div class="hero-badges">
       <div><strong>+ años</strong>de tradición en Irapuato <span class="edit-note">(confirmar cifra)</span></div>
       <div><strong>100%</strong>selección artesanal</div>
-      <div><strong>15 min</strong>entrega en zona local</div>
+      <div><strong>15 min*</strong>entrega en zona local</div>
     </div>
   </div>
 
@@ -804,24 +821,34 @@
       <h2>La confianza de Irapuato</h2>
       <div class="divider center"></div>
     </div>
-    <div class="t-grid">
-      <div class="t-card">
-        <div class="stars">★★★★★</div>
-        <p>"La calidad de los cortes es incomparable. Torunos siempre es mi primera opción para reuniones familiares."</p>
-        <div class="who">— Cliente frecuente, Irapuato</div>
+    <div class="t-carousel">
+      <button class="t-nav prev" type="button" aria-label="Testimonio anterior">&#10094;</button>
+      <div class="t-track-wrap">
+        <div class="t-track">
+          <div class="t-card">
+            <div class="stars">★★★★★</div>
+            <p>"La calidad de los cortes es incomparable. Torunos siempre es mi primera opción para reuniones familiares."</p>
+            <div class="who">— Cliente frecuente, Irapuato</div>
+          </div>
+          <div class="t-card">
+            <div class="stars">★★★★★</div>
+            <p>"Piden por WhatsApp y en poco tiempo lo tienes en la puerta de tu casa. Frescura y atención de primera."</p>
+            <div class="who">— Cliente de entrega a domicilio</div>
+          </div>
+          <div class="t-card">
+            <div class="stars">★★★★★</div>
+            <p>"El programa de recompensas se agradece mucho, se nota que cuidan a quien vuelve a comprar."</p>
+            <div class="who">— Miembro Club Torunos</div>
+          </div>
+        </div>
       </div>
-      <div class="t-card">
-        <div class="stars">★★★★★</div>
-        <p>"Piden por WhatsApp y en poco tiempo lo tienes en la puerta de tu casa. Frescura y atención de primera."</p>
-        <div class="who">— Cliente de entrega a domicilio</div>
-      </div>
-      <div class="t-card">
-        <div class="stars">★★★★★</div>
-        <p>"El programa de recompensas se agradece mucho, se nota que cuidan a quien vuelve a comprar."</p>
-        <div class="who">— Miembro Club Torunos</div>
-      </div>
+      <button class="t-nav next" type="button" aria-label="Testimonio siguiente">&#10095;</button>
     </div>
-    <p style="text-align:center; margin-top:28px; font-size:.75rem; color:var(--ink-dim);" class="edit-note">Testimonios de ejemplo — sustituir por reseñas reales de clientes cuando estén disponibles.</p>
+    <div class="t-dots">
+      <span class="t-dot active" data-index="0"></span>
+      <span class="t-dot" data-index="1"></span>
+      <span class="t-dot" data-index="2"></span>
+    </div>
   </div>
 </section>
 
@@ -941,6 +968,26 @@
     recetaNext.addEventListener('click', () => goToReceta(recetaIndex + 1));
     recetaDots.forEach(d => {
       d.addEventListener('click', () => goToReceta(parseInt(d.dataset.index, 10)));
+    });
+  }
+
+  // Testimonials carousel
+  const tTrack = document.querySelector('.t-track');
+  const tCards = document.querySelectorAll('.t-card');
+  const tDots = document.querySelectorAll('.t-dot');
+  const tPrev = document.querySelector('.t-nav.prev');
+  const tNext = document.querySelector('.t-nav.next');
+  let tIndex = 0;
+  function goToTestimonio(i){
+    tIndex = (i + tCards.length) % tCards.length;
+    tTrack.style.transform = `translateX(-${tIndex * 100}%)`;
+    tDots.forEach((d, idx) => d.classList.toggle('active', idx === tIndex));
+  }
+  if(tTrack){
+    tPrev.addEventListener('click', () => goToTestimonio(tIndex - 1));
+    tNext.addEventListener('click', () => goToTestimonio(tIndex + 1));
+    tDots.forEach(d => {
+      d.addEventListener('click', () => goToTestimonio(parseInt(d.dataset.index, 10)));
     });
   }
 </script>
