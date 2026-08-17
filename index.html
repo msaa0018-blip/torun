@@ -162,7 +162,7 @@
     --ink:#f5efe4;
     --ink-dim:#dcd1bc;
     background:
-      linear-gradient(180deg, rgba(10,8,6,.35) 0%, #0c0a08 92%),
+      linear-gradient(100deg, rgba(4,3,2,.92) 0%, rgba(4,3,2,.72) 40%, rgba(4,3,2,.4) 68%, rgba(4,3,2,.18) 100%), linear-gradient(180deg, rgba(4,3,2,.3) 0%, #0c0a08 96%),
       url('https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=900&auto=format&fit=crop') center/cover no-repeat;
   }
   .hero-inner{ max-width:760px; padding-top:47px; }
@@ -170,16 +170,19 @@
     font-size:clamp(2.6rem, 6vw, 4.6rem);
     line-height:1.05;
     margin:18px 0 24px;
+    text-shadow: 0 2px 18px rgba(0,0,0,.55), 0 1px 3px rgba(0,0,0,.6);
   }
   .hero h1{ color:var(--ink); }
   .hero h1 em{ color:var(--accent); font-style:italic; }
   .brand{ color:var(--ink); }
+  .hero .eyebrow{ text-shadow: 0 1px 6px rgba(0,0,0,.6); }
   .hero p{
     font-family:'Cormorant Garamond', serif;
     font-size:1.35rem;
     color:var(--ink-dim);
     max-width:540px;
     margin-bottom:40px;
+    text-shadow: 0 1px 8px rgba(0,0,0,.5);
   }
   .hero-actions{ display:flex; gap:18px; flex-wrap:wrap; }
   .hero-badges{
