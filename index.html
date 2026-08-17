@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Torunos | Carnicería Premium — Irapuato</title>
+<meta name="description" content="Carnicería Torunos, Irapuato. Cortes selectos, tradición y entrega a domicilio vía WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Playfair+Display:wght@500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0a08;
+    --bg-alt:#141110;
+    --panel:#17130f;
+    --line: rgba(212,175,110,0.18);
+    --ink:#f3ead9;
+    --ink-dim:#c9bda4;
+    --accent:#cda45e;
+    --accent-2:#8a1f2b;
+    --accent-soft: rgba(205,164,94,0.12);
+    --shadow: 0 30px 60px -20px rgba(0,0,0,.6);
+    --radius: 2px;
+  }
+  [data-theme="copper"]{
+    --bg:#0b0d0d;
+    --bg-alt:#121516;
+    --panel:#151a1b;
+    --line: rgba(196,120,74,0.2);
+    --ink:#f2ece6;
+    --ink-dim:#c3bdb7;
+    --accent:#c4784a;
+    --accent-2:#3c4a48;
+    --accent-soft: rgba(196,120,74,0.13);
+  }
+  [data-theme="ivory"]{
+    --bg:#f6f1e7;
+    --bg-alt:#efe7d6;
+    --panel:#fffdf8;
+    --line: rgba(90,62,32,0.18);
+    --ink:#2b2116;
+    --ink-dim:#5a4a37;
+    --accent:#9c6b28;
+    --accent-2:#6f2b2b;
+    --accent-soft: rgba(156,107,40,0.1);
+    --shadow: 0 24px 50px -20px rgba(60,40,20,.18);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Montserrat', sans-serif;
+    font-weight:300;
+    line-height:1.7;
+    transition:background .5s ease, color .5s ease;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Playfair Display', serif;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+  .eyebrow{
+    font-family:'Montserrat',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.35em;
+    font-size:.7rem;
+    color:var(--accent);
+    font-weight:600;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  section{position:relative; padding:120px 0;}
+  .divider{
+    width:64px; height:1px; background:linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin:22px 0;
+  }
+  .divider.center{margin:22px auto;}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:16px 34px;
+    border:1px solid var(--accent);
+    color:var(--ink);
+    font-family:'Montserrat',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:.72rem;
+    font-weight:600;
+    background:transparent;
+    cursor:pointer;
+    transition:.35s ease;
+    position:relative;
+  }
+  .btn.solid{ background:var(--accent); color:#0c0a08; border-color:var(--accent);}
+  .btn:hover{ background:var(--accent); color:#0c0a08; letter-spacing:.24em;}
+  .btn.solid:hover{ background:transparent; color:var(--ink);}
+
+  /* ===== NAV ===== */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:500;
+    background:linear-gradient(to bottom, rgba(0,0,0,.55), transparent);
+    padding:26px 0;
+    transition: background .4s ease, padding .4s ease, backdrop-filter .4s ease;
+  }
+  header.scrolled{
+    background:var(--bg);
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    backdrop-filter: blur(10px);
+  }
+  nav{display:flex; align-items:center; justify-content:space-between;}
+  .brand{
+    font-family:'Playfair Display', serif;
+    font-size:1.5rem;
+    letter-spacing:.08em;
+    font-weight:700;
+    display:flex; align-items:center; gap:12px;
+  }
+  .brand .mark{
+    width:38px; height:38px; border:1px solid var(--accent); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.85rem; color:var(--accent); letter-spacing:0;
+  }
+  .navlinks{display:flex; gap:38px; align-items:center;}
+  .navlinks a{
+    font-size:.72rem; text-transform:uppercase; letter-spacing:.16em; color:var(--ink-dim);
+    transition:.3s;
+    position:relative;
+  }
+  .navlinks a:hover{color:var(--accent);}
+  .theme-switch{display:flex; gap:8px; align-items:center; margin-left:12px;}
+  .theme-dot{
+    width:18px; height:18px; border-radius:50%; cursor:pointer; border:1px solid rgba(255,255,255,.3);
+    transition:.3s; position:relative;
+  }
+  .theme-dot.active{ box-shadow:0 0 0 2px var(--bg), 0 0 0 3px var(--accent);}
+  .theme-dot[data-t="gold"]{background:linear-gradient(135deg,#cda45e,#8a1f2b);}
+  .theme-dot[data-t="copper"]{background:linear-gradient(135deg,#c4784a,#3c4a48);}
+  .theme-dot[data-t="ivory"]{background:linear-gradient(135deg,#f6f1e7,#9c6b28);}
+  .navburger{display:none;}
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height:100vh;
+    display:flex; align-items:center;
+    position:relative;
+    background:
+      linear-gradient(180deg, rgba(10,8,6,.35) 0%, var(--bg) 92%),
+      url('https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;
+  }
+  [data-theme="ivory"] .hero{
+    background:
+      linear-gradient(180deg, rgba(246,241,231,.55) 0%, var(--bg) 92%),
+      url('https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;
+  }
+  .hero-inner{ max-width:760px; padding-top:70px; }
+  .hero h1{
+    font-size:clamp(2.6rem, 6vw, 4.6rem);
+    line-height:1.05;
+    margin:18px 0 24px;
+  }
+  .hero h1 em{ color:var(--accent); font-style:italic; }
+  .hero p{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.35rem;
+    color:var(--ink-dim);
+    max-width:540px;
+    margin-bottom:40px;
+  }
+  .hero-actions{ display:flex; gap:18px; flex-wrap:wrap; }
+  .hero-badges{
+    display:flex; gap:36px; margin-top:70px; flex-wrap:wrap;
+    border-top:1px solid var(--line); padding-top:28px;
+  }
+  .hero-badges div{font-size:.68rem; text-transform:uppercase; letter-spacing:.14em; color:var(--ink-dim);}
+  .hero-badges strong{
+    display:block; font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--accent); font-weight:700;
+  }
+  .scrolldown{
+    position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-dim);
+  }
+  .scrolldown .line{ width:1px; height:40px; background:linear-gradient(var(--accent), transparent); animation:sd 1.8s infinite;}
+  @keyframes sd{0%{opacity:.2} 50%{opacity:1} 100%{opacity:.2}}
+
+  /* ===== SECTION HEADS ===== */
+  .head{ max-width:680px; margin-bottom:60px; }
+  .head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+  .head h2{ font-size:clamp(2rem,3.5vw,2.9rem); margin-top:14px; }
+
+  /* ===== LEGACY ===== */
+  .legacy{ background:var(--bg-alt); }
+  .legacy-grid{ display:grid; grid-template-columns:1fr 1.1fr; gap:70px; align-items:center; }
+  .legacy-media{ position:relative; }
+  .legacy-media img{ border:1px solid var(--line); filter:saturate(.9) contrast(1.05); }
+  .legacy-media .frame{
+    position:absolute; inset:18px; border:1px solid var(--accent); pointer-events:none; opacity:.5;
+  }
+  .legacy-text p{ color:var(--ink-dim); margin-bottom:18px; font-size:1.02rem; }
+  .stat-row{ display:flex; gap:44px; margin-top:34px; }
+  .stat-row div strong{ display:block; font-family:'Playfair Display',serif; font-size:2.1rem; color:var(--accent); }
+  .stat-row div span{ font-size:.7rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-dim); }
+
+  /* ===== CATALOG ===== */
+  .catalog-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
+    border:1px solid var(--line);
+  }
+  .cut{
+    background:var(--panel); padding:0; position:relative; overflow:hidden;
+    border:1px solid transparent;
+  }
+  .cut .img{ height:230px; overflow:hidden; }
+  .cut .img img{ width:100%; height:100%; object-fit:cover; transition:transform .6s ease; filter:saturate(.95);}
+  .cut:hover .img img{ transform:scale(1.08); }
+  .cut-body{ padding:26px 26px 30px; }
+  .cut-body .eyebrow{ font-size:.62rem; }
+  .cut-body h3{ font-size:1.3rem; margin:10px 0 8px; }
+  .cut-body p{ color:var(--ink-dim); font-size:.9rem; margin-bottom:14px; }
+  .cut-body .price{ color:var(--accent); font-family:'Playfair Display',serif; font-size:1.1rem; }
+
+  /* ===== ORDERS / DELIVERY ===== */
+  .orders{ background:var(--bg-alt); }
+  .orders-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:40px; margin-top:10px;}
+  .step{ border-top:1px solid var(--line); padding-top:26px; }
+  .step .num{ font-family:'Playfair Display',serif; font-size:2.4rem; color:var(--accent-soft); -webkit-text-stroke:1px var(--accent); color:transparent; }
+  .step h3{ margin:14px 0 10px; font-size:1.25rem; }
+  .step p{ color:var(--ink-dim); font-size:.92rem; }
+
+  .wa-card{
+    margin-top:70px;
+    display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap;
+    padding:46px 50px;
+    background:var(--panel);
+    border:1px solid var(--line);
+  }
+  .wa-card h3{ font-size:1.6rem; margin-bottom:10px; }
+  .wa-card p{ color:var(--ink-dim); max-width:420px; }
+  .wa-btn{
+    display:inline-flex; align-items:center; gap:12px;
+    background:#25D366; color:#08210f; padding:16px 30px; font-weight:700;
+    text-transform:uppercase; letter-spacing:.12em; font-size:.78rem;
+    border:1px solid #25D366; transition:.3s;
+  }
+  .wa-btn:hover{ background:transparent; color:#25D366; }
+
+  /* ===== LOYALTY ===== */
+  .loyalty{
+    background: radial-gradient(circle at 20% 20%, var(--accent-soft), transparent 60%), var(--bg);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .loyalty-inner{ display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
+  .loyalty h2{ font-size:clamp(1.9rem,3vw,2.6rem); margin:14px 0 20px; }
+  .loyalty p{ color:var(--ink-dim); margin-bottom:24px; }
+  .progress-track{ display:flex; gap:8px; margin:32px 0; }
+  .progress-track .dot{
+    flex:1; height:6px; background:var(--line); position:relative; overflow:hidden;
+  }
+  .progress-track .dot::after{
+    content:''; position:absolute; inset:0; background:var(--accent); transform:scaleX(0); transform-origin:left;
+    transition:transform .5s ease;
+  }
+  .progress-track .dot.filled::after{ transform:scaleX(1); }
+  .loyalty-card{
+    background:var(--panel); border:1px solid var(--line); padding:44px;
+  }
+  .loyalty-card .tag{
+    display:inline-block; background:var(--accent); color:#0c0a08; font-size:.65rem; text-transform:uppercase;
+    letter-spacing:.14em; padding:6px 14px; font-weight:700; margin-bottom:20px;
+  }
+  .loyalty-card h4{ font-size:1.9rem; margin-bottom:10px; }
+  .loyalty-card ul{ list-style:none; margin-top:22px; }
+  .loyalty-card li{
+    display:flex; justify-content:space-between; padding:14px 0; border-bottom:1px solid var(--line);
+    font-size:.88rem; color:var(--ink-dim);
+  }
+  .loyalty-card li span:last-child{ color:var(--accent); font-weight:600; }
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials{ background:var(--bg-alt); }
+  .t-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:36px; }
+  .t-card{
+    background:var(--panel); border:1px solid var(--line); padding:38px 32px;
+  }
+  .t-card .stars{ color:var(--accent); letter-spacing:3px; margin-bottom:18px; font-size:.9rem;}
+  .t-card p{ font-family:'Cormorant Garamond', serif; font-size:1.2rem; font-style:italic; color:var(--ink); margin-bottom:20px; }
+  .t-card .who{ font-size:.76rem; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-dim); }
+
+  /* ===== LOCATION ===== */
+  .location-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line); }
+  .loc-info{ padding:60px; background:var(--panel); }
+  .loc-info h3{ font-size:1.6rem; margin-bottom:24px; }
+  .loc-row{ display:flex; gap:16px; margin-bottom:24px; align-items:flex-start; }
+  .loc-row .ic{ color:var(--accent); font-size:1.1rem; margin-top:2px; }
+  .loc-row strong{ display:block; font-size:.85rem; text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px; }
+  .loc-row span{ color:var(--ink-dim); font-size:.92rem; }
+  .map-embed{ min-height:420px; filter:grayscale(.4) contrast(1.1); border:0; width:100%; height:100%; }
+
+  /* ===== FOOTER ===== */
+  footer{ padding:70px 0 40px; text-align:center; background:var(--bg); border-top:1px solid var(--line); }
+  footer .brand{ justify-content:center; margin-bottom:18px; }
+  footer p{ color:var(--ink-dim); font-size:.8rem; }
+  .foot-links{ display:flex; justify-content:center; gap:26px; margin:26px 0; }
+  .foot-links a{ font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-dim); }
+  .foot-links a:hover{ color:var(--accent); }
+
+  /* ===== FLOATING WHATSAPP ===== */
+  .float-wa{
+    position:fixed; bottom:28px; right:28px; z-index:600;
+    width:64px; height:64px; border-radius:50%;
+    background:#25D366; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+    animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(37,211,102,.5);}
+    70%{ box-shadow:0 0 0 16px rgba(37,211,102,0);}
+    100%{ box-shadow:0 0 0 0 rgba(37,211,102,0);}
+  }
+
+  /* ===== EDIT NOTE ===== */
+  .edit-note{
+    position:relative; font-size:.62rem; color:var(--accent); text-transform:uppercase; letter-spacing:.08em;
+    opacity:.75; margin-top:6px;
+  }
+
+  @media (max-width: 980px){
+    .legacy-grid, .loyalty-inner, .location-grid{ grid-template-columns:1fr; gap:40px;}
+    .catalog-grid{ grid-template-columns:repeat(2,1fr);}
+    .orders-grid, .t-grid{ grid-template-columns:1fr;}
+    .navlinks{ display:none; }
+    .loc-info{ padding:40px; }
+  }
+</style>
+</head>
+<body data-theme="gold">
+
+<!-- ===== NAV ===== -->
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <div class="brand"><span class="mark">T</span> Torunos</div>
+      <div class="navlinks">
+        <a href="#historia">Legado</a>
+        <a href="#catalogo">Cortes</a>
+        <a href="#pedidos">Pedidos</a>
+        <a href="#lealtad">Recompensas</a>
+        <a href="#ubicacion">Ubicación</a>
+        <div class="theme-switch" aria-label="Elegir paleta">
+          <div class="theme-dot active" data-t="gold" title="Negro, dorado y vino"></div>
+          <div class="theme-dot" data-t="copper" title="Negro y cobre"></div>
+          <div class="theme-dot" data-t="ivory" title="Hueso, madera y dorado"></div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="inicio">
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Carnicería establecida · Irapuato, Guanajuato</div>
+    <h1>El arte de la carne,<br><em>tradición</em> hecha corte.</h1>
+    <p>Torunos es sinónimo de calidad en Irapuato: selección artesanal, madurado propio y el sabor que ha acompañado a generaciones de familias en la ciudad.</p>
+    <div class="hero-actions">
+      <a href="#pedidos" class="btn solid">Hacer un pedido</a>
+      <a href="https://wa.me/524626276875?text=Hola%20Torunos%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" class="btn">Escribir por WhatsApp</a>
+    </div>
+    <div class="hero-badges">
+      <div><strong>+ años</strong>de tradición en Irapuato <span class="edit-note">(confirmar cifra)</span></div>
+      <div><strong>100%</strong>selección artesanal</div>
+      <div><strong>30 min</strong>entrega en zona local</div>
+    </div>
+  </div>
+  <div class="scrolldown"><span>Descubrir</span><span class="line"></span></div>
+</section>
+
+<!-- ===== LEGADO ===== -->
+<section class="legacy" id="historia">
+  <div class="wrap legacy-grid">
+    <div class="legacy-media">
+      <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=900&auto=format&fit=crop" alt="Carnicería Torunos - selección de cortes">
+      <div class="frame"></div>
+    </div>
+    <div class="legacy-text">
+      <div class="eyebrow">Nuestra historia</div>
+      <h2>Una carnicería reconocida, construida corte a corte.</h2>
+      <div class="divider"></div>
+      <p>Torunos nació del oficio: el compromiso de ofrecer a Irapuato la carne que las familias buscan para sus mesas más importantes. Con el tiempo, nos convertimos en un referente de confianza para quienes exigen calidad, frescura y trato cercano.</p>
+      <p>Cada corte se selecciona a mano, se prepara con técnica y se entrega con el mismo cuidado con el que atenderíamos a nuestra propia familia. Esa es la esencia que nos ha ganado el reconocimiento de la comunidad.</p>
+      <div class="stat-row">
+        <div><strong>4.9★</strong><span>Calificación de clientes</span></div>
+        <div><strong>100%</strong><span>Res y cerdo seleccionados</span></div>
+        <div><strong>1</strong><span>Sucursal en Irapuato</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATALOGO ===== -->
+<section id="catalogo">
+  <div class="wrap">
+    <div class="head center">
+      <div class="eyebrow">Catálogo de la casa</div>
+      <h2>Cortes que distinguen una mesa premium</h2>
+      <div class="divider center"></div>
+    </div>
+    <div class="catalog-grid">
+      <div class="cut">
+        <div class="img"><img src="https://images.unsplash.com/photo-1558030006-450675393462?q=80&w=800&auto=format&fit=crop" alt="Ribeye Torunos"></div>
+        <div class="cut-body">
+          <div class="eyebrow">Res</div>
+          <h3>Ribeye Selecto</h3>
+          <p>Marmoleo fino, madurado en casa. Ideal para asador.</p>
+          <div class="price">Precio por kg — consultar</div>
+        </div>
+      </div>
+      <div class="cut">
+        <div class="img"><img src="https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?q=80&w=800&auto=format&fit=crop" alt="Arrachera Torunos"></div>
+        <div class="cut-body">
+          <div class="eyebrow">Res</div>
+          <h3>Arrachera Marinada</h3>
+          <p>Receta propia de la casa, lista para la parrilla.</p>
+          <div class="price">Precio por kg — consultar</div>
+        </div>
+      </div>
+      <div class="cut">
+        <div class="img"><img src="https://images.unsplash.com/photo-1607116176996-3ceb767c1eea?q=80&w=800&auto=format&fit=crop" alt="Costillas Torunos"></div>
+        <div class="cut-body">
+          <div class="eyebrow">Cerdo</div>
+          <h3>Costilla Cargada</h3>
+          <p>Adobo artesanal Torunos, lista para hornear o asar.</p>
+          <div class="price">Precio por kg — consultar</div>
+        </div>
+      </div>
+      <div class="cut">
+        <div class="img"><img src="https://images.unsplash.com/photo-1551028150-64b9f398f678?q=80&w=800&auto=format&fit=crop" alt="Embutidos Torunos"></div>
+        <div class="cut-body">
+          <div class="eyebrow">Especialidad</div>
+          <h3>Embutidos de la Casa</h3>
+          <p>Chorizo y longaniza con receta tradicional.</p>
+          <div class="price">Precio por kg — consultar</div>
+        </div>
+      </div>
+      <div class="cut">
+        <div class="img"><img src="https://images.unsplash.com/photo-1615937722923-67f6deaf88ee?q=80&w=800&auto=format&fit=crop" alt="Milanesa Torunos"></div>
+        <div class="cut-body">
+          <div class="eyebrow">Res / Cerdo</div>
+          <h3>Milanesa Fileteada</h3>
+          <p>Corte parejo, listo para empanizar en casa.</p>
+          <div class="price">Precio por kg — consultar</div>
+        </div>
+      </div>
+      <div class="cut">
+        <div class="img"><img src="https://images.unsplash.com/photo-1546964124-0cce460f38ef?q=80&w=800&auto=format&fit=crop" alt="Parrillada Torunos"></div>
+        <div class="cut-body">
+          <div class="eyebrow">Combo</div>
+          <h3>Parrillada Torunos</h3>
+          <p>Selección mixta para reunión familiar o especial.</p>
+          <div class="price">Precio por kg — consultar</div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:26px; font-size:.8rem; color:var(--ink-dim);">Precios y disponibilidad se confirman directamente por WhatsApp según corte y temporada.</p>
+  </div>
+</section>
+
+<!-- ===== PEDIDOS Y ENTREGAS ===== -->
+<section class="orders" id="pedidos">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Pedidos y entregas</div>
+      <h2>Tu pedido, directo a tu mesa</h2>
+      <div class="divider"></div>
+      <p style="color:var(--ink-dim); font-family:'Cormorant Garamond',serif; font-size:1.15rem;">Pide por WhatsApp y recibe tus cortes frescos en la comodidad de tu casa, con la misma calidad de mostrador.</p>
+    </div>
+    <div class="orders-grid">
+      <div class="step">
+        <div class="num">01</div>
+        <h3>Elige tus cortes</h3>
+        <p>Escríbenos por WhatsApp indicando los cortes, cantidad y preparación deseada.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h3>Confirmamos tu pedido</h3>
+        <p>Te confirmamos disponibilidad, precio y el tiempo estimado de entrega o de recolección en tienda.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h3>Recibe en tu domicilio</h3>
+        <p>Entregamos en Irapuato y alrededores, con empaque que conserva frescura y cadena de frío.</p>
+      </div>
+    </div>
+
+    <div class="wa-card">
+      <div>
+        <h3>Pide en segundos por WhatsApp</h3>
+        <p>Atención personalizada, cortes al gusto y confirmación inmediata de tu pedido.</p>
+      </div>
+      <a class="wa-btn" href="https://wa.me/524626276875?text=Hola%20Torunos%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39c1.44.79 3.06 1.2 4.71 1.2h.01c5.46 0 9.91-4.45 9.91-9.91C21.92 6.45 17.5 2 12.04 2Zm0 18.15h-.01c-1.47 0-2.91-.39-4.17-1.14l-.3-.18-3.14.82.84-3.06-.2-.31a8.19 8.19 0 0 1-1.26-4.37c0-4.53 3.69-8.22 8.24-8.22 2.2 0 4.27.86 5.83 2.42a8.17 8.17 0 0 1 2.41 5.81c0 4.53-3.69 8.23-8.24 8.23Zm4.51-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.84-.86 2.04 0 1.2.88 2.37 1 2.53.12.17 1.73 2.64 4.2 3.7.59.25 1.05.4 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.28Z"/></svg>
+        462 627 6875
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LEALTAD ===== -->
+<section class="loyalty" id="lealtad">
+  <div class="wrap loyalty-inner">
+    <div>
+      <div class="eyebrow">Programa de recompensas</div>
+      <h2>Entre más pides, más ganas.</h2>
+      <p>Cada pedido cuenta. Acumula tus compras con nosotros y, a partir del séptimo pedido, obtén un porcentaje de descuento en tu siguiente compra como agradecimiento por tu preferencia.</p>
+      <p>Llevamos el conteo por WhatsApp: solo pide como siempre y nosotros registramos tu avance.</p>
+      <div class="progress-track">
+        <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+      </div>
+      <a href="https://wa.me/524626276875?text=Hola%2C%20quiero%20saber%20mi%20avance%20en%20el%20programa%20de%20recompensas%20Torunos" target="_blank" rel="noopener" class="btn solid">Consultar mi avance</a>
+    </div>
+    <div class="loyalty-card">
+      <span class="tag">Club Torunos</span>
+      <h4>7 pedidos = recompensa</h4>
+      <p style="color:var(--ink-dim); font-size:.9rem;">Así funciona nuestro beneficio por lealtad:</p>
+      <ul>
+        <li><span>Pedidos 1–6</span><span>Acumulan tu progreso</span></li>
+        <li><span>Pedido 7</span><span>% de descuento especial*</span></li>
+        <li><span>Registro</span><span>Automático vía WhatsApp</span></li>
+        <li><span>Vigencia</span><span>Sin fecha de caducidad</span></li>
+      </ul>
+      <p class="edit-note" style="margin-top:18px;">*Porcentaje exacto a confirmar por el negocio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIOS ===== -->
+<section class="testimonials">
+  <div class="wrap">
+    <div class="head center">
+      <div class="eyebrow">Lo que dicen de nosotros</div>
+      <h2>La confianza de Irapuato</h2>
+      <div class="divider center"></div>
+    </div>
+    <div class="t-grid">
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <p>"La calidad de los cortes es incomparable. Torunos siempre es mi primera opción para reuniones familiares."</p>
+        <div class="who">— Cliente frecuente, Irapuato</div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <p>"Piden por WhatsApp y en poco tiempo lo tienes en la puerta de tu casa. Frescura y atención de primera."</p>
+        <div class="who">— Cliente de entrega a domicilio</div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <p>"El programa de recompensas se agradece mucho, se nota que cuidan a quien vuelve a comprar."</p>
+        <div class="who">— Miembro Club Torunos</div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:28px; font-size:.75rem; color:var(--ink-dim);" class="edit-note">Testimonios de ejemplo — sustituir por reseñas reales de clientes cuando estén disponibles.</p>
+  </div>
+</section>
+
+<!-- ===== UBICACION ===== -->
+<section id="ubicacion">
+  <div class="wrap">
+    <div class="head center">
+      <div class="eyebrow">Visítanos</div>
+      <h2>Ubicación y horario</h2>
+      <div class="divider center"></div>
+    </div>
+    <div class="location-grid">
+      <div class="loc-info">
+        <h3>Torunos Carnicería</h3>
+        <div class="loc-row">
+          <div class="ic">📍</div>
+          <div><strong>Dirección</strong><span>Av. Solidaridad, Infonavit #1348, Col. Solidaridad, 36570 Irapuato, Gto.</span></div>
+        </div>
+        <div class="loc-row">
+          <div class="ic">🕒</div>
+          <div>
+            <strong>Horario</strong>
+            <span style="display:block;">Lunes a sábado: 6:30 a.m. – 5:00 p.m.</span>
+            <span style="display:block;">Domingo: 7:30 a.m. – 3:30 p.m.</span>
+          </div>
+        </div>
+        <div class="loc-row">
+          <div class="ic">📞</div>
+          <div><strong>WhatsApp / Teléfono</strong><span>462 627 6875</span></div>
+        </div>
+        <div class="loc-row">
+          <div class="ic">🚚</div>
+          <div><strong>Zona de entrega</strong><span>Irapuato y alrededores</span></div>
+        </div>
+        <a href="https://wa.me/524626276875" target="_blank" rel="noopener" class="btn solid" style="margin-top:20px;">Contactar ahora</a>
+      </div>
+      <iframe class="map-embed" loading="lazy" allowfullscreen
+        src="https://www.google.com/maps?q=Av.+Solidaridad+1348,+Infonavit+Solidaridad,+36570+Irapuato,+Gto.&output=embed">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="brand"><span class="mark">T</span> Torunos</div>
+    <p>Carnicería premium en Irapuato, Guanajuato — tradición, frescura y entrega a domicilio.</p>
+    <div class="foot-links">
+      <a href="#historia">Legado</a>
+      <a href="#catalogo">Cortes</a>
+      <a href="#pedidos">Pedidos</a>
+      <a href="#lealtad">Recompensas</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a href="https://wa.me/524626276875" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <p>© 2026 Torunos. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- ===== FLOATING WHATSAPP ===== -->
+<a class="float-wa" href="https://wa.me/524626276875?text=Hola%20Torunos%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="#08210f"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39c1.44.79 3.06 1.2 4.71 1.2h.01c5.46 0 9.91-4.45 9.91-9.91C21.92 6.45 17.5 2 12.04 2Zm0 18.15h-.01c-1.47 0-2.91-.39-4.17-1.14l-.3-.18-3.14.82.84-3.06-.2-.31a8.19 8.19 0 0 1-1.26-4.37c0-4.53 3.69-8.22 8.24-8.22 2.2 0 4.27.86 5.83 2.42a8.17 8.17 0 0 1 2.41 5.81c0 4.53-3.69 8.23-8.24 8.23Zm4.51-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.84-.86 2.04 0 1.2.88 2.37 1 2.53.12.17 1.73 2.64 4.2 3.7.59.25 1.05.4 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.28Z"/></svg>
+</a>
+
+<script>
+  // Header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Theme switcher
+  const dots = document.querySelectorAll('.theme-dot');
+  const body = document.body;
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const theme = dot.dataset.t;
+      body.dataset.theme = theme === 'gold' ? 'gold' : theme;
+      if(theme === 'gold'){ body.removeAttribute('data-theme'); body.setAttribute('data-theme','gold'); }
+      dots.forEach(d => d.classList.remove('active'));
+      dot.classList.add('active');
+    });
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.style.opacity = 1;
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, {threshold:.15});
+  document.querySelectorAll('section .wrap > *').forEach(el => {
+    el.style.opacity = 0;
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity .8s ease, transform .8s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
