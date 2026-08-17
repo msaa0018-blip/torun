@@ -59,7 +59,7 @@
     font-weight:300;
     line-height:1.7;
     transition:background .5s ease, color .5s ease;
-    overflow-x:hidden;
+    max-width:100vw;
   }
   h1,h2,h3,h4{
     font-family:'Playfair Display', serif;
@@ -356,6 +356,11 @@
   .filter-bar{
     display:flex; flex-wrap:wrap; justify-content:center; gap:12px;
     margin-bottom:44px;
+    position:sticky; top:70px; z-index:100;
+    background:var(--bg);
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+    transition: background .4s ease;
   }
   .filter-pill{
     font-family:'Montserrat',sans-serif; text-transform:uppercase; letter-spacing:.14em; font-size:.68rem; font-weight:600;
